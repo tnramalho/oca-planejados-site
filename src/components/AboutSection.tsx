@@ -9,15 +9,15 @@ export default function AboutSection() {
               Nossa história
             </span>
             <h2 className="text-4xl md:text-5xl font-light text-[#0A0A0A] leading-tight mb-8">
-              33 anos criando
+              Mais de três décadas criando
               <br />
               <em className="font-semibold not-italic">ambientes únicos</em>
             </h2>
             <div className="space-y-5 text-[#4A4A4A] text-base font-light leading-relaxed">
               <p>
-                A Oca Planejados nasceu em João Pessoa com uma única missão: transformar espaços
-                em experiências. Em três décadas, crescemos de uma pequena marcenaria no coração
-                da Paraíba para uma referência em móveis planejados em todo o nordeste.
+                A Oca Planejados é uma empresa familiar de móveis planejados em João Pessoa.
+                Há mais de três décadas, desenvolve ambientes para casas e empresas, com atenção
+                às necessidades de cada cliente.
               </p>
               <p>
                 Cada projeto começa com uma conversa. Entendemos o seu estilo de vida, o modo
@@ -25,9 +25,9 @@ export default function AboutSection() {
                 tudo isso em um projeto 3D detalhado — antes de cortar uma única peça de madeira.
               </p>
               <p>
-                Da cozinha ao closet, do quarto ao escritório: entregamos ambientes que funcionam
-                perfeitamente e ficam bonitos para sempre. Não por acaso, mais de 8.000 famílias
-                já confiaram na Oca para transformar seus lares.
+                Da cozinha ao closet, do quarto ao escritório: o projeto considera circulação,
+                armazenamento e acabamentos. No showroom em Manaíra, você pode conhecer
+                materiais e conversar com a equipe antes de decidir.
               </p>
             </div>
             <a
@@ -47,23 +47,23 @@ export default function AboutSection() {
               {[
                 {
                   icon: '⬡',
-                  title: 'Projeto 3D Gratuito',
-                  desc: 'Visualize seu ambiente antes de qualquer investimento. Apresentamos o projeto em 3D fotorrealista para sua aprovação.',
+                  title: 'Projeto 3D',
+                  desc: 'Avalie a distribuição dos móveis e os acabamentos no projeto 3D antes de aprovar a fabricação.',
                 },
                 {
                   icon: '◈',
                   title: 'Materiais de Alta Durabilidade',
-                  desc: 'Utilizamos MDF e MDP de primeira linha com ferragens alemãs e italianas. Móveis que duram décadas.',
+                  desc: 'Conheça materiais, ferragens e acabamentos no showroom para escolher as opções adequadas ao seu ambiente.',
                 },
                 {
                   icon: '◎',
-                  title: 'Fabricação Própria',
-                  desc: 'Nossa fábrica em João Pessoa garante controle total de qualidade e prazos — sem intermediários.',
+                  title: 'Produção e Montagem',
+                  desc: 'Após a aprovação do projeto, alinhamos as etapas de produção e montagem conforme a proposta contratada.',
                 },
                 {
                   icon: '◇',
-                  title: 'Garantia & Pós-Venda',
-                  desc: 'Acompanhamento completo da instalação e suporte após a entrega. Você não fica sozinho depois da montagem.',
+                  title: 'Atendimento Próximo',
+                  desc: 'Converse com a equipe sobre instalação, cuidados com os móveis e condições de garantia antes de contratar.',
                 },
               ].map((item) => (
                 <div key={item.title} className="bg-[#F5F5F0] p-8 hover:bg-white transition-colors duration-300">

@@ -6,8 +6,8 @@ export default function CTASection() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/oca-drive-2-4O9A2770.jpg"
-          alt="Ambiente planejado Oca Planejados"
+          src="/images/oca-4O9A2849.webp"
+          alt="Cozinha planejada com ilha e armários amadeirados — Oca Planejados"
           fill
           style={{ objectFit: 'cover' }}
           quality={80}
@@ -25,8 +25,8 @@ export default function CTASection() {
           <em className="font-semibold not-italic">em algo inesquecível</em>
         </h2>
         <p className="text-white/60 text-lg font-light max-w-2xl mx-auto leading-relaxed mb-12">
-          Agende uma conversa com nossos consultores. O projeto 3D é gratuito e sem compromisso.
-          Venha ao showroom ou fale conosco pelo WhatsApp agora.
+          Envie a planta, as medidas ou as fotos do seu ambiente.
+          Converse com nossa equipe e solicite uma proposta para seu projeto.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

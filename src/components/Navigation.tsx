@@ -6,7 +6,7 @@ const navLinks = [
   { label: 'Ambientes', href: '#ambientes' },
   { label: 'Portfólio', href: '#portfolio' },
   { label: 'Showroom', href: '#showroom' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Dúvidas', href: '#duvidas' },
   { label: 'Contato', href: '#contato' },
 ];
 
@@ -67,6 +67,8 @@ export default function Navigation() {
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
+          aria-expanded={menuOpen}
+          aria-controls="menu-mobile"
         >
           <span className={`block w-6 h-px bg-white transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
           <span className={`block w-6 h-px bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
@@ -76,6 +78,8 @@ export default function Navigation() {
 
       {/* Mobile menu */}
       <div
+        id="menu-mobile"
+        hidden={!menuOpen}
         className={`md:hidden overflow-hidden transition-all duration-500 ${
           menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}

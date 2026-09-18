@@ -1,3 +1,5 @@
+import { business, mapEmbedUrl, mapsUrl } from '@/lib/site';
+
 export default function ShowroomSection() {
   return (
     <section id="showroom" className="py-0 bg-[#F5F5F0]">
@@ -8,9 +10,9 @@ export default function ShowroomSection() {
             Showroom
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-[#0A0A0A] leading-tight mb-8">
-            Venha tocar, sentir
+            Conheça nosso showroom
             <br />
-            <em className="font-semibold not-italic">e se inspirar</em>
+            <em className="font-semibold not-italic">em João Pessoa</em>
           </h2>
           <p className="text-[#4A4A4A] text-base font-light leading-relaxed mb-8 max-w-md">
             Valorizamos a proximidade e a transparência em cada detalhe. Visite nosso showroom
@@ -28,9 +30,9 @@ export default function ShowroomSection() {
               <div>
                 <div className="text-[#0A0A0A] text-sm font-medium mb-0.5">Endereço</div>
                 <div className="text-[#7A7A7A] text-sm font-light">
-                  Av. Maria Rosa, 1094 - Loja 02
+                  {business.streetAddress}
                   <br />
-                  Manaíra, João Pessoa — PB, 58038-460
+                  {business.neighborhood}, {business.city} — {business.state}
                 </div>
               </div>
             </div>
@@ -60,9 +62,7 @@ export default function ShowroomSection() {
               <div>
                 <div className="text-[#0A0A0A] text-sm font-medium mb-0.5">Horário</div>
                 <div className="text-[#7A7A7A] text-sm font-light">
-                  Seg–Sex: 8h às 18h
-                  <br />
-                  Sábados: 8h às 13h
+                  Consulte os horários pelo WhatsApp e agende sua visita.
                 </div>
               </div>
             </div>
@@ -93,16 +93,30 @@ export default function ShowroomSection() {
             </svg>
             Agendar visita
           </a>
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-5 text-sm underline text-[#0A0A0A] self-start">Como chegar ao showroom</a>
         </div>
 
         {/* Right: map */}
         <div className="relative min-h-[400px] reveal reveal-delay-2">
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Abrir localização da Oca Planejados no Google Maps"
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3 rounded-lg bg-white px-5 py-4 text-[#0A0A0A] shadow-xl w-max max-w-[90%]"
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" fill="#B38A4B" />
+              <circle cx="12" cy="10" r="3" fill="white" />
+            </svg>
+            <span><strong className="block text-sm">Oca Planejados</strong><span className="text-xs">Abrir no Google Maps ↗</span></span>
+          </a>
           <iframe
             title="Localização Oca Planejados"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.3!2d-34.8454!3d-7.1012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDYnMDQuMyJTIDM0wrA1MCc0My40Ilc!5e0!3m2!1spt!2sbr!4v1620000000000!5m2!1spt!2sbr"
+            src={mapEmbedUrl}
             width="100%"
             height="100%"
-            style={{ border: 0, filter: 'grayscale(100%) invert(90%) contrast(95%)' }}
+            style={{ border: 0, position: 'absolute', inset: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

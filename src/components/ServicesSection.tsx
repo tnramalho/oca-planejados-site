@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+import ImageLightbox from './ImageLightbox';
 import Image from 'next/image';
 
 const SERVICES = [
@@ -5,48 +9,46 @@ const SERVICES = [
     title: 'Cozinha Planejada',
     description:
       'Espaços funcionais com design sofisticado. Armários, bancadas, iluminação embutida e acabamentos premium que transformam sua cozinha no coração da casa.',
-    image: '/images/oca-gallery1.webp',
-    keywords: ['cozinha planejada jp', 'cozinha sob medida joão pessoa'],
+    image: '/images/oca-4O9A2849.webp',
   },
   {
     title: 'Closet & Walk-in',
     description:
       'Organização e elegância em perfeito equilíbrio. Closets com iluminação LED, cabideiros duplos, gavetas e espelhos que otimizam cada centímetro.',
-    image: '/images/oca-gallery3.webp',
-    keywords: ['closet planejado jp', 'walk-in closet joão pessoa'],
+    image: '/images/oca-4O9A2791.webp',
   },
   {
     title: 'Dormitórios',
     description:
       'Quarto, suíte ou infantil — criamos ambientes que favorecem o descanso e refletem a personalidade de quem dorme ali, do painel da cama ao guarda-roupa.',
-    image: '/images/oca-gallery2.webp',
-    keywords: ['quarto planejado jp', 'dormitório planejado joão pessoa'],
+    image: '/images/oca-showroom-2751.webp',
   },
   {
     title: 'Home Office',
     description:
       'Produtividade com conforto. Bancadas com tomadas integradas, estantes com LED, nichos e painéis que transformam qualquer cômodo em um escritório de alto desempenho.',
     image: '/images/oca-gallery6.webp',
-    keywords: ['home office planejado jp', 'escritório planejado joão pessoa'],
   },
   {
     title: 'Sala de Estar',
     description:
       'Painéis de TV, racks, estantes e elementos decorativos que dão personalidade e fluidez aos ambientes sociais da sua residência.',
-    image: '/images/oca-gallery5.webp',
-    keywords: ['sala planejada jp', 'painel tv joão pessoa'],
+    image: '/images/oca-showroom-2763.webp',
   },
   {
     title: 'Escritório Corporativo',
     description:
       'Soluções para empresas, consultórios e escritórios profissionais. Recepções, salas de reunião e espaços de trabalho com identidade e funcionalidade.',
-    image: '/images/oca-drive-1-4O9A3807.jpg',
-    keywords: ['móveis corporativos jp', 'escritório planejado pb'],
+    image: '/images/oca-drive-1-4O9A3807.webp',
   },
 ];
 
+const SERVICE_IMAGES = SERVICES.map(service => ({ src: service.image, alt: service.title }));
+
 export default function ServicesSection() {
+  const [lightbox, setLightbox] = useState<number | null>(null);
   return (
+    <>
     <section id="ambientes" className="py-24 bg-[#0d0d0d]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
@@ -73,7 +75,7 @@ export default function ServicesSection() {
               className={`reveal reveal-delay-${(i % 3) + 1} bg-[#0d0d0d] group`}
             >
               {/* Image */}
-              <div className="relative h-56 overflow-hidden">
+              <button type="button" onClick={() => setLightbox(i)} aria-label={`Ampliar: ${service.title}`} aria-haspopup="dialog" className="relative block w-full h-56 overflow-hidden cursor-zoom-in">
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -83,7 +85,7 @@ export default function ServicesSection() {
                   className="transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
+              </button>
 
               {/* Content */}
               <div className="p-8">
@@ -102,14 +104,12 @@ export default function ServicesSection() {
                 </a>
               </div>
 
-              {/* Hidden SEO keywords */}
-              <div className="hidden" aria-hidden="true">
-                {service.keywords.join(', ')}
-              </div>
             </article>
           ))}
         </div>
       </div>
     </section>
+    {lightbox !== null && <ImageLightbox images={SERVICE_IMAGES} initialIndex={lightbox} onClose={() => setLightbox(null)} />}
+    </>
   );
 }

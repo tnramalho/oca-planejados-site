@@ -1,3 +1,4 @@
+import { business } from '@/lib/site';
 import Image from 'next/image';
 
 export default function Footer() {
@@ -15,8 +16,8 @@ export default function Footer() {
               className="w-32 h-auto mb-6 opacity-80"
             />
             <p className="text-white/40 text-sm font-light leading-relaxed max-w-sm">
-              Móveis planejados e sob medida em João Pessoa, PB. 33 anos de tradição
-              transformando espaços em ambientes únicos e funcionais.
+              Móveis planejados em João Pessoa para sua casa ou empresa.
+              Conheça nosso showroom em Manaíra e converse sobre seu projeto.
             </p>
             <a
               href="https://wa.me/5583987922774"
@@ -56,15 +57,15 @@ export default function Footer() {
                 <a href="#portfolio" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Portfólio</a>
               </li>
               <li>
-                <a href="#blog" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Blog</a>
+                <a href="#duvidas" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Dúvidas frequentes</a>
               </li>
               <li>
                 <a href="#showroom" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Showroom</a>
               </li>
               <li>
                 <address className="text-white/40 text-sm font-light not-italic leading-relaxed">
-                  Av. Maria Rosa, 1094 - Loja 02<br />
-                  Manaíra, João Pessoa - PB
+                  {business.streetAddress}<br />
+                  {business.neighborhood}, {business.city} - {business.state}
                 </address>
               </li>
             </ul>
@@ -77,7 +78,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Oca Planejados. Todos os direitos reservados.
           </p>
           <p className="text-white/15 text-xs">
-            Móveis Planejados em João Pessoa, PB · CNPJ: A consultar
+            Móveis Planejados em João Pessoa, PB
           </p>
         </div>
       </div>

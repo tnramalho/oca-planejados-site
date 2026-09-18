@@ -1,80 +1,50 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
-// Ordered: best photos first — from Drive folder 2 (residential) + OCA website
-const SLIDES = [
-  { src: '/images/oca-drive-2-4O9A2765.jpg', label: 'Closet' },
-  { src: '/images/oca-hero-bg.webp',           label: 'Cozinha' },
-  { src: '/images/oca-drive-2-4O9A2767.jpg',   label: 'Walk-in Closet' },
-  { src: '/images/oca-drive-2-4O9A2771.jpg',   label: 'Home Office' },
-  { src: '/images/oca-gallery3.webp',           label: 'Closet' },
-  { src: '/images/oca-drive-2-4O9A2775.jpg',   label: 'Suíte' },
-  { src: '/images/oca-gallery1.webp',           label: 'Cozinha' },
-  { src: '/images/oca-drive-2-4O9A2780.jpg',   label: 'Escritório' },
-  { src: '/images/oca-gallery5.webp',           label: 'Sala' },
-  { src: '/images/oca-drive-2-4O9A2773.jpg',   label: 'Closet Premium' },
-];
-
-const INTERVAL = 6000;
-
 export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const goTo = useCallback(
-    (idx: number) => {
-      if (isTransitioning || idx === current) return;
-      setIsTransitioning(true);
-      setPrev(current);
-      setCurrent(idx);
-      setTimeout(() => {
-        setPrev(null);
-        setIsTransitioning(false);
-      }, 1800);
-    },
-    [current, isTransitioning]
-  );
-
-  const next = useCallback(() => {
-    goTo((current + 1) % SLIDES.length);
-  }, [current, goTo]);
+  const video = useRef<HTMLVideoElement>(null);
+  const [motionEnabled, setMotionEnabled] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(next, INTERVAL);
-    return () => clearInterval(id);
-  }, [next]);
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setMotionEnabled(!preference.matches);
+    update();
+    preference.addEventListener('change', update);
+    return () => preference.removeEventListener('change', update);
+  }, []);
+
+  const togglePlayback = () => {
+    if (video.current?.paused) {
+      void video.current.play().catch(() => setPlaying(false));
+    } else {
+      video.current?.pause();
+    }
+  };
 
   return (
-    <section id="hero" className="relative w-full h-screen min-h-[600px] overflow-hidden">
-      {/* Slideshow */}
-      <div className="hero-slideshow">
-        {SLIDES.map((slide, i) => (
-          <div
-            key={slide.src}
-            className={`hero-slide ${i % 2 === 0 ? 'even' : ''} ${
-              i === current ? 'active' : i === prev ? 'prev' : ''
-            }`}
+    <section id="hero" className="relative isolate w-full min-h-[max(760px,100svh)] overflow-hidden">
+      <div className="hero-slideshow" aria-hidden="true">
+        <Image src="/images/oca-showroom-2805.webp" alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
+        {motionEnabled && (
+          <video
+            ref={video}
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay muted loop playsInline preload="metadata"
+            poster="/images/oca-showroom-2805.webp"
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+            onError={() => setMotionEnabled(false)}
           >
-            <Image
-              src={slide.src}
-              alt={`Oca Planejados — ${slide.label}`}
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              style={{ objectFit: 'cover' }}
-              quality={85}
-            />
-          </div>
-        ))}
-
-        {/* Flow overlay gradient */}
+            <source src="/videos/oca-showroom-hero.mp4" type="video/mp4" />
+          </video>
+        )}
         <div className="flow-overlay" />
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+      <div className="relative z-10 min-h-[max(760px,100svh)] flex flex-col justify-center items-center text-center px-6 pt-32 pb-36">
         {/* Top badge */}
         <div
           className="mb-8 px-5 py-2 border border-white/20 text-white/60 text-xs tracking-[0.3em] uppercase"
@@ -85,21 +55,21 @@ export default function HeroSection() {
 
         {/* Main headline */}
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white leading-[0.95] tracking-tight mb-6 max-w-5xl"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.08] tracking-tight mb-6 max-w-5xl"
           style={{ animation: 'slideUp 1s ease 0.5s both' }}
         >
-          Ambientes que
+          Móveis planejados e sob medida
           <br />
-          <span className="font-semibold italic">contam a sua história</span>
+          <span className="font-semibold italic">em João Pessoa</span>
         </h1>
 
         {/* Sub */}
         <p
-          className="text-white/65 text-base sm:text-lg font-light max-w-xl leading-relaxed mb-10"
+          className="text-white/90 text-base sm:text-lg font-light max-w-xl leading-relaxed mb-10"
           style={{ animation: 'slideUp 1s ease 0.8s both' }}
         >
-          Do projeto 3D à montagem final — criamos móveis planejados
-          únicos para quem vive com intenção.
+          Do projeto 3D à montagem final. Criamos ambientes inteligentes e sofisticados,
+          pensados para o seu estilo de vida e o espaço do seu imóvel.
         </p>
 
         {/* CTAs */}
@@ -125,30 +95,19 @@ export default function HeroSection() {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
           style={{ animation: 'fadeIn 1s ease 1.5s both' }}
         >
-          <span className="text-white/30 text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-white/30 text-xs tracking-widest uppercase">Conheça os projetos</span>
           <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </div>
 
-      {/* Slide dots */}
-      <div className="absolute bottom-8 right-8 z-20 flex gap-2 items-center">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className={`slide-dot ${i === current ? 'active' : ''}`}
-            aria-label={`Slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Slide counter */}
-      <div className="absolute bottom-10 left-8 z-20 text-white/30 text-xs tracking-widest font-light">
-        {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
-      </div>
+      {motionEnabled && (
+        <button type="button" onClick={togglePlayback} className="absolute bottom-8 right-6 z-20 rounded-full border border-white/40 bg-black/40 px-4 py-3 text-xs text-white" aria-label={playing ? 'Pausar vídeo de fundo' : 'Reproduzir vídeo de fundo'}>
+          {playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
+        </button>
+      )}
     </section>
   );
 }

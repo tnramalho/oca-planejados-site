@@ -1,24 +1,35 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import ImageLightbox from './ImageLightbox';
 
 const GALLERY_IMAGES = [
-  { src: '/images/oca-drive-2-4O9A2765.jpg', alt: 'Closet planejado com LED e cabideiros duplos — Oca Planejados João Pessoa' },
-  { src: '/images/oca-drive-2-4O9A2766.jpg', alt: 'Walk-in closet elegante — Oca Planejados JP' },
-  { src: '/images/oca-drive-2-4O9A2767.jpg', alt: 'Closet premium com espelho integrado — Oca Planejados' },
-  { src: '/images/oca-hero-bg.webp',          alt: 'Cozinha planejada moderna com coifa e bancada em mármore — Oca Planejados' },
-  { src: '/images/oca-drive-2-4O9A2771.jpg', alt: 'Home office planejado com painel em madeira — Oca Planejados João Pessoa' },
-  { src: '/images/oca-drive-2-4O9A2775.jpg', alt: 'Suíte master planejada com cabeceira em painel — Oca Planejados' },
+  { src: '/images/oca-showroom-2751.webp', alt: 'Quarto com painel amadeirado e cabeceira estofada — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2775.webp', alt: 'Sala de jantar integrada com cristaleira iluminada — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2805.webp', alt: 'Cozinha com ilha e armários cinza — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2763.webp', alt: 'Painel de TV com bancada e prateleiras iluminadas — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2742.webp', alt: 'Detalhe da cabeceira e painel amadeirado — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2757.webp', alt: 'Armário com portas de vidro e iluminação interna — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2769.webp', alt: 'Integração entre sala de jantar e painel de TV — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2790.webp', alt: 'Mesa de jantar e cristaleira do ambiente integrado — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2796.webp', alt: 'Torre de eletrodomésticos e armários planejados — Showroom Oca Planejados' },
+  { src: '/images/oca-showroom-2799.webp', alt: 'Bancada de cozinha e armários inferiores — Showroom Oca Planejados' },
+  { src: '/images/oca-4O9A2849.webp', alt: 'Cozinha com ilha, armários amadeirados e iluminação embutida — Oca Planejados' },
+  { src: '/images/oca-4O9A2791.webp', alt: 'Closet com ilha central e prateleiras iluminadas — Oca Planejados' },
+  { src: '/images/oca-4O9A2804.webp', alt: 'Sapateira com prateleiras iluminadas e estrutura dourada — Oca Planejados' },
+  { src: '/images/oca-4O9A2852.webp', alt: 'Cozinha com armários cinza e nichos para eletrodomésticos — Oca Planejados' },
+  { src: '/images/oca-drive-2-4O9A2771.webp', alt: 'Banheiro com gabinete planejado e espelho — Oca Planejados João Pessoa' },
+  { src: '/images/oca-drive-2-4O9A2775.webp', alt: 'Closet com nichos e prateleiras iluminadas — Oca Planejados' },
   { src: '/images/oca-gallery3.webp',          alt: 'Walk-in closet completo com iluminação LED — Oca Planejados JP' },
-  { src: '/images/oca-drive-2-4O9A2780.jpg', alt: 'Escritório com bancada planejada e prateleiras embutidas — Oca Planejados' },
-  { src: '/images/oca-gallery5.webp',          alt: 'Sala de estar com painel TV em porcelanato e rack planejado — Oca Planejados' },
-  { src: '/images/oca-drive-2-4O9A2773.jpg', alt: 'Closet premium de alto padrão — Oca Planejados João Pessoa' },
+  { src: '/images/oca-drive-2-4O9A2780.webp', alt: 'Escritório com bancada planejada e prateleiras embutidas — Oca Planejados' },
+  { src: '/images/oca-4O9A2837.webp', alt: 'Sala de estar com painel ripado em madeira e sofá claro — Oca Planejados' },
+  { src: '/images/oca-drive-2-4O9A2773.webp', alt: 'Closet premium de alto padrão — Oca Planejados João Pessoa' },
   { src: '/images/oca-gallery2.webp',          alt: 'Quarto planejado com cabeceira em madeira natural — Oca Planejados' },
   { src: '/images/oca-gallery6.webp',          alt: 'Escritório integrado com painel escuro e bancada — Oca Planejados' },
 ];
 
 export default function GallerySection() {
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
 
   return (
     <>
@@ -37,20 +48,23 @@ export default function GallerySection() {
               </h2>
             </div>
             <p className="text-white/40 text-sm font-light max-w-xs leading-relaxed">
-              Cada foto é um ambiente real entregue para famílias reais em João Pessoa e região.
+              Conheça os ambientes do nosso showroom e projetos de móveis planejados em João Pessoa.
             </p>
           </div>
 
           {/* Gallery grid — masonry-like */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
             {GALLERY_IMAGES.map((img, i) => (
-              <div
+              <button
+                type="button"
+                aria-label={`Ampliar: ${img.alt}`}
+                aria-haspopup="dialog"
                 key={img.src}
-                className={`gallery-item relative overflow-hidden cursor-zoom-in reveal reveal-delay-${(i % 4) + 1} ${
+                className={`gallery-item group relative overflow-hidden cursor-zoom-in reveal reveal-delay-${(i % 4) + 1} ${
                   i === 0 ? 'col-span-2 row-span-2' : ''
                 } ${i === 5 ? 'col-span-2' : ''}`}
                 style={{ aspectRatio: i === 0 ? '1/1' : i === 5 ? '2/1' : '3/4' }}
-                onClick={() => setLightbox(img.src)}
+                onClick={() => setLightbox(i)}
               >
                 <Image
                   src={img.src}
@@ -65,7 +79,7 @@ export default function GallerySection() {
                     Ver projeto
                   </span>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 
@@ -83,29 +97,8 @@ export default function GallerySection() {
         </div>
       </section>
 
-      {/* Lightbox */}
-      {lightbox && (
-        <div
-          className="lightbox open"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            className="absolute top-6 right-6 text-white/60 hover:text-white text-3xl z-10"
-            onClick={() => setLightbox(null)}
-            aria-label="Fechar"
-          >
-            ×
-          </button>
-          <div className="relative w-[90vw] h-[90vh]">
-            <Image
-              src={lightbox}
-              alt="Projeto Oca Planejados"
-              fill
-              style={{ objectFit: 'contain' }}
-              quality={90}
-            />
-          </div>
-        </div>
+      {lightbox !== null && (
+        <ImageLightbox images={GALLERY_IMAGES} initialIndex={lightbox} onClose={() => setLightbox(null)} />
       )}
     </>
   );
