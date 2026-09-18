@@ -1,0 +1,13 @@
+User-Agent: *
+Allow: /
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: Claude-Web
+Allow: /
+
+User-Agent: Googlebot
+Allow: /
+
+Sitemap: https://ocaplanejados.vercel.app/sitemap.xml
