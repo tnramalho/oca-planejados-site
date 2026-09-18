@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'Contato', href: '/#contato' },
 ];
 
-export default function Navigation() {
+export default function Navigation({ anchorRoot = '/' }: { anchorRoot?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,7 +38,7 @@ export default function Navigation() {
     >
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
-        <a href="/#hero" className="flex-shrink-0">
+        <a href={`${anchorRoot}#hero`} className="flex-shrink-0">
           <Image
             src="/images/oca-logo.webp"
             alt="Oca Planejados"
@@ -54,7 +54,7 @@ export default function Navigation() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={`${anchorRoot}${link.href.slice(1)}`}
               className="text-white/70 hover:text-white text-xs font-normal tracking-[0.2em] uppercase transition-colors duration-300"
             >
               {link.label}
@@ -99,7 +99,7 @@ export default function Navigation() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={`${anchorRoot}${link.href.slice(1)}`}
               onClick={() => setMenuOpen(false)}
               className="py-3 min-h-11 text-white/80 text-xs font-normal tracking-[0.2em] uppercase"
             >

@@ -10,12 +10,14 @@ class Page(HTMLParser):
         super().__init__()
         self.path, self.h1, self.canonicals, self.images, self.links, self.ids = path, 0, [], [], [], set()
         self.json_text, self.in_json = '', False
+        self.robots = []
         self.graph = []
         self.feed(path.read_text())
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if 'id' in a: self.ids.add(a['id'])
         if tag == 'h1': self.h1 += 1
+        if tag == 'meta' and a.get('name') == 'robots': self.robots.append(a.get('content', ''))
         if tag == 'link' and a.get('rel') == 'canonical': self.canonicals.append(a['href'])
         if tag == 'img':
             assert 'alt' in a, (self.path, 'missing alt')
@@ -53,3 +55,19 @@ assert locations == {'https://ocaplanejados.com' + route for route in pages}
 assert 'Allow: /' in (root/'robots.txt').read_text()
 assert len(pages) == 4
 print(f'PASS: {len(pages)} pages; H1, canonical, schema, Instagram, sitemap, links, anchors and responsive image assets.')
+
+experiment = Page(root/'experiencia/index.html')
+assert experiment.h1 == 1
+assert experiment.canonicals == ['https://ocaplanejados.com/experiencia/']
+assert any('noindex' in value for value in experiment.robots)
+assert 'https://ocaplanejados.com/experiencia/' not in locations
+for image in experiment.images:
+    assert (root / unquote(urlsplit(image).path).lstrip('/')).is_file(), image
+all_pages = {**pages, '/experiencia/': experiment}
+for link in experiment.links:
+    url = urlsplit(link)
+    target = url.path or '/experiencia/'
+    assert target in all_pages, ('experiment broken link', link)
+    if url.fragment: assert url.fragment in all_pages[target].ids, ('experiment missing anchor', link)
+assert not any('/experiencia/' in link for link in pages['/'].links)
+print('PASS: isolated experimental route, noindex, original navigation, layer files and anchors.')

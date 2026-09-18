@@ -1,7 +1,7 @@
 import { business } from '@/lib/site';
 import Image from 'next/image';
 
-export default function Footer() {
+export default function Footer({ anchorRoot = '/' }: { anchorRoot?: string }) {
   return (
     <footer className="bg-[#060606] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -40,7 +40,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {['Cozinha Planejada', 'Closet & Walk-in', 'Dormitórios', 'Home Office', 'Sala de Estar', 'Escritório Corporativo'].map((item) => (
                 <li key={item}>
-                  <a href="/#ambientes" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">
+                  <a href={`${anchorRoot}#ambientes`} className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">
                     {item}
                   </a>
                 </li>
@@ -53,16 +53,16 @@ export default function Footer() {
             <h4 className="text-white/70 text-xs tracking-[0.2em] uppercase mb-5">Informações</h4>
             <ul className="space-y-3">
               <li>
-                <a href="/#sobre" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Nossa História</a>
+                <a href={`${anchorRoot}#sobre`} className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Nossa História</a>
               </li>
               <li>
-                <a href="/#portfolio" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Portfólio</a>
+                <a href={`${anchorRoot}#portfolio`} className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Portfólio</a>
               </li>
               <li>
-                <a href="/#duvidas" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Dúvidas frequentes</a>
+                <a href={`${anchorRoot}#duvidas`} className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Dúvidas frequentes</a>
               </li>
               <li>
-                <a href="/#showroom" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Showroom</a>
+                <a href={`${anchorRoot}#showroom`} className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Showroom</a>
               </li>
               <li>
                 <address className="text-white/65 text-sm font-light not-italic leading-relaxed">
