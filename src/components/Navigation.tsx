@@ -26,7 +26,7 @@ export default function Navigation() {
         scrolled ? 'nav-scrolled py-3' : 'py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
         <a href="#hero" className="flex-shrink-0">
           <Image
@@ -40,12 +40,12 @@ export default function Navigation() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-white/70 hover:text-white text-sm font-light tracking-widest uppercase transition-colors duration-300"
+              className="text-white/70 hover:text-white text-xs font-normal tracking-[0.2em] uppercase transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -57,14 +57,14 @@ export default function Navigation() {
           href="https://wa.me/5583987922774?text=Olá!%20Gostaria%20de%20conhecer%20os%20ambientes%20planejados%20da%20Oca."
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:flex btn-primary text-xs"
+          className="hidden lg:flex btn-primary text-xs"
         >
-          Falar com consultor
+          Iniciar projeto
         </a>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
           aria-expanded={menuOpen}
@@ -80,7 +80,7 @@ export default function Navigation() {
       <div
         id="menu-mobile"
         hidden={!menuOpen}
-        className={`md:hidden overflow-hidden transition-all duration-500 ${
+        className={`lg:hidden overflow-hidden transition-all duration-500 ${
           menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
         style={{ background: 'rgba(10,10,10,0.98)' }}
@@ -91,7 +91,7 @@ export default function Navigation() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-white/80 text-sm font-light tracking-widest uppercase"
+              className="text-white/80 text-xs font-normal tracking-[0.2em] uppercase"
             >
               {link.label}
             </a>
@@ -102,7 +102,7 @@ export default function Navigation() {
             rel="noopener noreferrer"
             className="btn-whatsapp text-sm justify-center mt-2"
           >
-            <WhatsAppIcon /> Falar com consultor
+            <WhatsAppIcon /> Iniciar projeto
           </a>
         </div>
       </div>

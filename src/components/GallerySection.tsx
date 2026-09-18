@@ -31,6 +31,8 @@ const GALLERY_IMAGES = [
 export default function GallerySection() {
   const [lightbox, setLightbox] = useState<number | null>(null);
 
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <>
       <section id="portfolio" className="py-24 bg-[#080808]">
@@ -53,24 +55,21 @@ export default function GallerySection() {
           </div>
 
           {/* Gallery grid — masonry-like */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
-            {GALLERY_IMAGES.map((img, i) => (
+          <div className="portfolio-editorial-grid">
+            {GALLERY_IMAGES.slice(0, expanded ? GALLERY_IMAGES.length : 6).map((img, i) => (
               <button
                 type="button"
                 aria-label={`Ampliar: ${img.alt}`}
                 aria-haspopup="dialog"
                 key={img.src}
-                className={`gallery-item group relative overflow-hidden cursor-zoom-in reveal reveal-delay-${(i % 4) + 1} ${
-                  i === 0 ? 'col-span-2 row-span-2' : ''
-                } ${i === 5 ? 'col-span-2' : ''}`}
-                style={{ aspectRatio: i === 0 ? '1/1' : i === 5 ? '2/1' : '3/4' }}
+                className={`gallery-item group relative overflow-hidden cursor-zoom-in reveal reveal-delay-${(i % 4) + 1} ${i % 5 === 0 ? 'portfolio-wide' : ''}`}
                 onClick={() => setLightbox(i)}
               >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  sizes={i % 5 === 0 ? "100vw" : "50vw"}
                   style={{ objectFit: 'cover' }}
                   className="transition-transform duration-700 hover:scale-105"
                 />
@@ -81,6 +80,12 @@ export default function GallerySection() {
                 </div>
               </button>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <button type="button" className="editorial-link" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
+              {expanded ? 'Mostrar seleção' : `Ver todas as ${GALLERY_IMAGES.length} imagens`} <span aria-hidden="true">{expanded ? '−' : '+'}</span>
+            </button>
           </div>
 
           {/* CTA */}
