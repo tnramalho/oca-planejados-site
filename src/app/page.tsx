@@ -1,3 +1,5 @@
+import ScrollReveal from '@/components/ScrollReveal';
+import { SITE_URL, faqs } from '@/lib/site';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import AtmosphereSection from '@/components/AtmosphereSection';
@@ -9,11 +11,24 @@ import ShowroomSection from '@/components/ShowroomSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
+const pageSchema = { '@context': 'https://schema.org', '@graph': [
+    {
+      '@type': 'WebPage', '@id': `${SITE_URL}/#pagina`, url: `${SITE_URL}/`, primaryImageOfPage: `${SITE_URL}/images/oca-showroom-2805.webp`, name: 'Móveis Planejados em João Pessoa | Oca Planejados',
+      inLanguage: 'pt-BR', isPartOf: { '@id': `${SITE_URL}/#site` }, about: { '@id': `${SITE_URL}/#empresa` },
+    },
+    {
+      '@type': 'FAQPage', '@id': `${SITE_URL}/#duvidas`, isPartOf: { '@id': `${SITE_URL}/#pagina` },
+      mainEntity: faqs.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })),
+    },
+] };
+
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema).replace(/</g, '\\u003c') }} />
       <Navigation />
       <main id="conteudo">
+        <ScrollReveal>
         <HeroSection />
         <AtmosphereSection />
         <AboutSection />
@@ -22,6 +37,7 @@ export default function Home() {
         <FAQSection />
         <ShowroomSection />
         <CTASection />
+        </ScrollReveal>
       </main>
       <Footer />
 

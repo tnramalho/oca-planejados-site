@@ -16,7 +16,7 @@ export default function CTASection() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center reveal">
-        <span className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6 block">
+        <span className="text-white/60 text-xs tracking-[0.3em] uppercase mb-6 block">
           Pronto para começar?
         </span>
         <h2 className="text-4xl md:text-6xl font-light text-white leading-tight mb-6">
@@ -47,7 +47,7 @@ export default function CTASection() {
         </div>
 
         {/* Trust indicators */}
-        <div className="flex flex-wrap justify-center gap-8 mt-16 text-white/30 text-xs tracking-wider uppercase">
+        <div className="flex flex-wrap justify-center gap-8 mt-16 text-white/60 text-xs tracking-wider uppercase">
           <span>✓ Projeto 3D Grátis</span>
           <span>✓ 33 Anos de Experiência</span>
           <span>✓ Instalação Incluída</span>

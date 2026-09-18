@@ -7,18 +7,21 @@ import Image from 'next/image';
 const SERVICES = [
   {
     title: 'Cozinha Planejada',
+    slug: 'cozinhas-planejadas-joao-pessoa',
     description:
       'Espaços funcionais com design sofisticado. Armários, bancadas, iluminação embutida e acabamentos premium que transformam sua cozinha no coração da casa.',
     image: '/images/oca-4O9A2849.webp',
   },
   {
     title: 'Closet & Walk-in',
+    slug: 'closets-planejados-joao-pessoa',
     description:
       'Organização e elegância em perfeito equilíbrio. Closets com iluminação LED, cabideiros duplos, gavetas e espelhos que otimizam cada centímetro.',
     image: '/images/oca-4O9A2791.webp',
   },
   {
     title: 'Dormitórios',
+    slug: 'quartos-planejados-joao-pessoa',
     description:
       'Quarto, suíte ou infantil — criamos ambientes que favorecem o descanso e refletem a personalidade de quem dorme ali, do painel da cama ao guarda-roupa.',
     image: '/images/oca-showroom-2751.webp',
@@ -53,7 +56,7 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="max-w-2xl mb-16 reveal">
-          <span className="text-white/30 text-xs tracking-[0.3em] uppercase mb-4 block">
+          <span className="text-white/60 text-xs tracking-[0.3em] uppercase mb-4 block">
             O que fazemos
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-white leading-tight mb-6">
@@ -61,7 +64,7 @@ export default function ServicesSection() {
             <br />
             <em className="font-semibold not-italic">os seus ambientes</em>
           </h2>
-          <p className="text-white/50 text-base font-light leading-relaxed">
+          <p className="text-white/70 text-base font-light leading-relaxed">
             Cada cômodo tem uma história para contar. Nós projetamos, fabricamos e instalamos
             móveis planejados que se adaptam perfeitamente ao seu espaço e ao seu estilo de vida.
           </p>
@@ -90,14 +93,15 @@ export default function ServicesSection() {
               {/* Content */}
               <div className="p-8">
                 <h3 className="text-white text-xl font-medium mb-3">{service.title}</h3>
-                <p className="text-white/50 text-sm font-light leading-relaxed mb-6">
+                {service.slug && <a href={`/ambientes/${service.slug}/`} className="editorial-link mb-5">Conhecer o ambiente ↗</a>}
+                <p className="text-white/70 text-sm font-light leading-relaxed mb-6">
                   {service.description}
                 </p>
                 <a
                   href={`https://wa.me/5583987922774?text=Olá!%20Tenho%20interesse%20em%20${encodeURIComponent(service.title)}.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors duration-300 flex items-center gap-2"
+                  className="text-white/65 hover:text-white text-xs tracking-widest uppercase transition-colors duration-300 flex items-center gap-2"
                 >
                   Solicitar orçamento
                   <span className="w-8 h-px bg-current transition-all duration-300 group-hover:w-16" />

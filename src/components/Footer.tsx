@@ -15,7 +15,7 @@ export default function Footer() {
               height={25}
               className="w-32 h-auto mb-6 opacity-80"
             />
-            <p className="text-white/40 text-sm font-light leading-relaxed max-w-sm">
+            <p className="text-white/65 text-sm font-light leading-relaxed max-w-sm">
               Móveis planejados em João Pessoa para sua casa ou empresa.
               Conheça nosso showroom em Manaíra e converse sobre seu projeto.
             </p>
@@ -30,15 +30,17 @@ export default function Footer() {
               </svg>
               (83) 98792-2774
             </a>
+            <div><a href={business.instagram} target="_blank" rel="noopener noreferrer" className="editorial-link mt-5">Instagram · @ocaplanejados_ ↗</a></div>
           </div>
+
 
           {/* Ambientes */}
           <div>
-            <h4 className="text-white/50 text-xs tracking-[0.2em] uppercase mb-5">Ambientes</h4>
+            <h4 className="text-white/70 text-xs tracking-[0.2em] uppercase mb-5">Ambientes</h4>
             <ul className="space-y-3">
               {['Cozinha Planejada', 'Closet & Walk-in', 'Dormitórios', 'Home Office', 'Sala de Estar', 'Escritório Corporativo'].map((item) => (
                 <li key={item}>
-                  <a href="#ambientes" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">
+                  <a href="/#ambientes" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">
                     {item}
                   </a>
                 </li>
@@ -48,22 +50,22 @@ export default function Footer() {
 
           {/* Info */}
           <div>
-            <h4 className="text-white/50 text-xs tracking-[0.2em] uppercase mb-5">Informações</h4>
+            <h4 className="text-white/70 text-xs tracking-[0.2em] uppercase mb-5">Informações</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#sobre" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Nossa História</a>
+                <a href="/#sobre" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Nossa História</a>
               </li>
               <li>
-                <a href="#portfolio" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Portfólio</a>
+                <a href="/#portfolio" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Portfólio</a>
               </li>
               <li>
-                <a href="#duvidas" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Dúvidas frequentes</a>
+                <a href="/#duvidas" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Dúvidas frequentes</a>
               </li>
               <li>
-                <a href="#showroom" className="text-white/40 hover:text-white/80 text-sm font-light transition-colors">Showroom</a>
+                <a href="/#showroom" className="text-white/65 hover:text-white/80 text-sm font-light transition-colors">Showroom</a>
               </li>
               <li>
-                <address className="text-white/40 text-sm font-light not-italic leading-relaxed">
+                <address className="text-white/65 text-sm font-light not-italic leading-relaxed">
                   {business.streetAddress}<br />
                   {business.neighborhood}, {business.city} - {business.state}
                 </address>
@@ -74,10 +76,10 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-white/20 text-xs">
+          <p className="text-white/60 text-xs">
             © {new Date().getFullYear()} Oca Planejados. Todos os direitos reservados.
           </p>
-          <p className="text-white/15 text-xs">
+          <p className="text-white/60 text-xs">
             Móveis Planejados em João Pessoa, PB
           </p>
         </div>

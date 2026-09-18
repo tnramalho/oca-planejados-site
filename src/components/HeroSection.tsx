@@ -6,16 +6,26 @@ export default function HeroSection() {
   const video = useRef<HTMLVideoElement>(null);
   const [motionEnabled, setMotionEnabled] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [canPlay, setCanPlay] = useState(false);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setMotionEnabled(!preference.matches);
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const update = () => {
+      setCanPlay(!preference.matches);
+      setMotionEnabled(!preference.matches && desktop.matches && !connection?.saveData && !['slow-2g', '2g', '3g'].includes(connection?.effectiveType ?? ''));
+    };
     update();
     preference.addEventListener('change', update);
     return () => preference.removeEventListener('change', update);
   }, []);
 
   const togglePlayback = () => {
+    if (!motionEnabled) {
+      setMotionEnabled(true);
+      return;
+    }
     if (video.current?.paused) {
       void video.current.play().catch(() => setPlaying(false));
     } else {
@@ -32,11 +42,12 @@ export default function HeroSection() {
             ref={video}
             className="absolute inset-0 h-full w-full object-cover"
             autoPlay muted loop playsInline preload="metadata"
-            poster="/images/oca-showroom-2805.webp"
+
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             onError={() => setMotionEnabled(false)}
           >
+            <source media="(max-width: 1023px)" src="/videos/oca-showroom-hero-mobile.mp4" type="video/mp4" />
             <source src="/videos/oca-showroom-hero.mp4" type="video/mp4" />
           </video>
         )}
@@ -48,7 +59,6 @@ export default function HeroSection() {
         {/* Top badge */}
         <div
           className="eyebrow mb-8"
-          style={{ animation: 'fadeIn 1s ease 0.3s both' }}
         >
           João Pessoa · Paraíba · Brasil
         </div>
@@ -56,7 +66,6 @@ export default function HeroSection() {
         {/* Main headline */}
         <h1
           className="hero-editorial-title"
-          style={{ animation: 'slideUp 1s ease 0.5s both' }}
         >
           Móveis planejados e sob medida
           <br />
@@ -66,7 +75,6 @@ export default function HeroSection() {
         {/* Sub */}
         <p
           className="hero-editorial-description"
-          style={{ animation: 'slideUp 1s ease 0.8s both' }}
         >
           Do projeto 3D à montagem final. Criamos ambientes inteligentes e sofisticados,
           pensados para o seu estilo de vida e o espaço do seu imóvel.
@@ -75,7 +83,6 @@ export default function HeroSection() {
         {/* CTAs */}
         <div
           className="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
-          style={{ animation: 'slideUp 1s ease 1s both' }}
         >
           <a
             href="https://wa.me/5583987922774?text=Olá!%20Gostaria%20de%20agendar%20uma%20visita%20ao%20showroom."
@@ -96,14 +103,13 @@ export default function HeroSection() {
         {/* Scroll indicator */}
         <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-          style={{ animation: 'fadeIn 1s ease 1.5s both' }}
         >
-          <span className="text-white/30 text-xs tracking-widest uppercase">Conheça os projetos</span>
+          <span className="text-white/60 text-xs tracking-widest uppercase">Conheça os projetos</span>
           <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </div>
 
-      {motionEnabled && (
+      {canPlay && (
         <button type="button" onClick={togglePlayback} className="absolute bottom-8 right-24 md:right-10 z-20 rounded-full border border-white/40 bg-black/40 px-4 py-3 text-xs text-white" aria-label={playing ? 'Pausar vídeo de fundo' : 'Reproduzir vídeo de fundo'}>
           {playing ? 'Pausar vídeo' : 'Reproduzir vídeo'}
         </button>

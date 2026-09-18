@@ -1,84 +1,33 @@
-# OCA Planejados — Site Institucional
+# Oca Planejados
 
-Site institucional da OCA Planejados, construído em Next.js 14 com Tailwind CSS.
+Site em Next.js 15, React 18 e Tailwind CSS, com exportação estática.
 
-**Deploy:** https://oca-planejados-site.vercel.app
-**Repositório:** https://github.com/tnramalho/oca-planejados-site
+## Desenvolvimento
 
----
+Node.js 20.9 ou superior. Execute `npm ci` e `npm run dev`.
 
-## Stack
+## Validação
 
-- **Next.js 14** — App Router, export estático (`output: 'export'`)
-- **TypeScript**
-- **Tailwind CSS**
-
-## Pré-requisitos
-
-- Node.js 18+
-- npm
-
-## Instalação e desenvolvimento local
-
-```bash
-npm install
-npm run dev
+```sh
+npm run build
+npm run typecheck
+python3 scripts/check-export.py
+npm audit
 ```
 
-O site roda em `http://localhost:3000`.
+O build gera `out/`. O Vercel publica automaticamente os pushes na branch `main`.
 
-## Build e preview
+## Imagens e vídeo
 
-```bash
-npm run build       # gera a pasta /out com os arquivos estáticos
-```
+As fotos WebP originais ficam em `public/images`. `predev` e `prebuild` geram as variantes responsivas com Sharp em `public/images/responsive`, pasta ignorada pelo Git. O loader estático do Next usa essas variantes sem servidor de imagens. Ao adicionar uma foto, reinicie o desenvolvimento para gerar suas versões.
 
-O `output: 'export'` no `next.config.js` faz o Next.js gerar HTML estático puro — sem servidor Node em produção.
+No celular e em conexões identificadas como lentas/economia de dados, o hero abre com foto. O vídeo é carregado por solicitação; no desktop ele inicia automaticamente, respeitando a preferência por movimento reduzido. A versão mobile tem 854 pixels de largura. O projeto Remotion está em `hero-video/`.
 
-## Deploy
+## Conteúdo e SEO
 
-O deploy é feito automaticamente pelo **Vercel** a cada push na branch `main`.
-
-Para deploy manual via CLI Vercel:
-```bash
-npx vercel --prod
-```
-
-## Estrutura do projeto
-
-```
-src/
-  app/
-    layout.tsx        # Layout global (fonte, metadata)
-    page.tsx          # Página principal (compõe as seções abaixo)
-    globals.css       # Estilos globais e variáveis CSS
-    robots.ts         # Configuração do robots.txt
-    sitemap.ts        # Geração automática do sitemap
-  components/
-    Navigation.tsx        # Barra de navegação
-    HeroSection.tsx       # Seção hero (topo)
-    AboutSection.tsx      # Sobre a empresa
-    ServicesSection.tsx   # Serviços oferecidos
-    GallerySection.tsx    # Galeria de projetos
-    ShowroomSection.tsx   # Showroom
-    StatsSection.tsx      # Números/estatísticas
-    TestimonialsSection.tsx  # Depoimentos de clientes
-    BlogSection.tsx       # Blog / artigos
-    CTASection.tsx        # Call-to-action
-    Footer.tsx            # Rodapé
-    RevealWrapper.tsx     # Animação de entrada ao scroll (wrapper reutilizável)
-  lib/                # Utilitários (helpers, constantes)
-public/               # Imagens, ícones e demais assets estáticos
-```
-
-## Como adicionar ou editar conteúdo
-
-- **Texto e copy:** editar diretamente no componente correspondente em `src/components/`
-- **Imagens:** colocar em `public/` e referenciar como `/nome-do-arquivo.jpg`
-- **Cores e fontes:** ajustar em `tailwind.config.ts` e `src/app/globals.css`
-- **Nova seção:** criar componente em `src/components/` e importar em `src/app/page.tsx`
-
-## Observações importantes
-
-- `images: { unoptimized: true }` está habilitado no `next.config.js` por conta do export estático — o componente `<Image>` do Next.js funciona normalmente, mas sem otimização automática de imagem no servidor.
-- O site não usa banco de dados nem API própria. Todo conteúdo é estático nos componentes.
+- Dados da empresa e dúvidas: `src/lib/site.ts`.
+- Guias dos ambientes: `src/lib/services.ts`.
+- Homepage e páginas de serviços têm canonical e dados estruturados próprios.
+- Fontes são baixadas pelo Next durante o build e servidas pelo próprio site.
+- O override do PostCSS atualiza a dependência transitiva do Next dentro da versão principal 8 para corrigir os avisos de segurança. Revisar ao atualizar o Next.
+- Pendências de publicação e medição: `docs/seo-publicacao.md`.

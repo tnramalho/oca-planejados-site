@@ -40,7 +40,7 @@ export default function GallerySection() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 reveal">
             <div>
-              <span className="text-white/30 text-xs tracking-[0.3em] uppercase mb-4 block">
+              <span className="text-white/60 text-xs tracking-[0.3em] uppercase mb-4 block">
                 Portfólio
               </span>
               <h2 className="text-4xl md:text-5xl font-light text-white leading-tight">
@@ -49,7 +49,7 @@ export default function GallerySection() {
                 <em className="font-semibold not-italic">inspiram</em>
               </h2>
             </div>
-            <p className="text-white/40 text-sm font-light max-w-xs leading-relaxed">
+            <p className="text-white/65 text-sm font-light max-w-xs leading-relaxed">
               Conheça os ambientes do nosso showroom e projetos de móveis planejados em João Pessoa.
             </p>
           </div>
@@ -69,7 +69,7 @@ export default function GallerySection() {
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes={i % 5 === 0 ? "100vw" : "50vw"}
+                  sizes={i % 5 === 0 ? "(max-width: 1280px) calc(100vw - 48px), 1232px" : "(max-width: 380px) calc(100vw - 48px), (max-width: 1280px) calc(50vw - 40px), 600px"}
                   style={{ objectFit: 'cover' }}
                   className="transition-transform duration-700 hover:scale-105"
                 />

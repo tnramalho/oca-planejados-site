@@ -2,6 +2,7 @@ export const SITE_URL = 'https://ocaplanejados.com';
 
 export const business = {
   name: 'Oca Planejados',
+  instagram: 'https://www.instagram.com/ocaplanejados_/',
   streetAddress: 'Av. Maria Rosa, 1094 - Loja 02',
   neighborhood: 'Manaíra',
   city: 'João Pessoa',

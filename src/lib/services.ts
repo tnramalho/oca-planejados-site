@@ -1,0 +1,47 @@
+export const serviceGuides = [
+  {
+    slug: 'cozinhas-planejadas-joao-pessoa',
+    name: 'Cozinhas planejadas',
+    title: 'Cozinhas planejadas em João Pessoa',
+    description: 'Cozinhas sob medida em João Pessoa, do projeto 3D à montagem. Conheça o showroom Oca em Manaíra e planeje armários para sua rotina.',
+    image: '/images/oca-showroom-2805.webp',
+    alt: 'Cozinha do showroom Oca com ilha, armários cinza e torre de eletrodomésticos',
+    intro: 'Uma cozinha começa pela forma como você usa o espaço. Na Oca Planejados, em João Pessoa, o projeto considera armazenamento, circulação e a relação entre preparar, cozinhar e receber.',
+    sections: [
+      { title: 'O que definir antes do projeto', text: 'Leve a planta ou as medidas disponíveis, fotos e os modelos dos eletrodomésticos. Geladeira, forno, cooktop e lava-louças precisam ser considerados desde o início: suas dimensões, aberturas e exigências de ventilação interferem na distribuição dos armários. Os pontos de água, gás e energia também orientam o planejamento.' },
+      { title: 'Ilha, bancada ou cozinha integrada?', text: 'A escolha depende da circulação e das atividades que você quer reunir. Uma ilha pode criar uma área de preparo e encontro, desde que exista espaço para abrir portas e gavetas e caminhar ao redor. Em uma cozinha compacta, priorizar a bancada e organizar o armazenamento pode ser mais adequado. O projeto 3D ajuda a comparar essas possibilidades.' },
+      { title: 'Veja os detalhes no showroom', text: 'A foto desta página mostra a cozinha do nosso showroom: armários inferiores, torre para eletrodomésticos e uma ilha central em um ambiente integrado. Na visita, observe a abertura dos móveis, a organização interna e a combinação de acabamentos. As escolhas para o seu imóvel serão definidas na proposta.' },
+    ],
+    checklist: ['Planta ou medidas disponíveis e fotos do ambiente', 'Modelos e medidas dos eletrodomésticos', 'Pontos de água, gás, tomadas e necessidades de iluminação', 'Itens que deseja guardar e rotina de uso'],
+  },
+  {
+    slug: 'closets-planejados-joao-pessoa',
+    name: 'Closets planejados',
+    title: 'Closets planejados em João Pessoa',
+    description: 'Planeje seu closet em João Pessoa com a Oca. Distribuição interna, portas e acabamentos pensados para sua rotina. Visite o showroom em Manaíra.',
+    image: '/images/oca-showroom-2757.webp',
+    alt: 'Armário do showroom Oca com portas de vidro, cabideiro, gavetas e iluminação interna',
+    intro: 'Organizar bem não é apenas acrescentar prateleiras. O closet precisa acomodar o que você tem, facilitar o acesso e funcionar junto com o restante do quarto. A Oca desenvolve móveis planejados para essa rotina em João Pessoa.',
+    sections: [
+      { title: 'A distribuição começa pelo que você guarda', text: 'Separe as necessidades de roupas longas, camisas, peças dobradas, sapatos, bolsas e acessórios. Essa lista ajuda a dimensionar cabideiros, gavetas e prateleiras sem repetir uma divisão que não atende ao seu uso. Quando o espaço é compartilhado, considere as necessidades de cada pessoa.' },
+      { title: 'Portas e circulação precisam funcionar juntas', text: 'Portas de correr, de abrir ou módulos abertos têm efeitos diferentes sobre acesso, circulação e aparência. Antes de escolher, considere a distância da cama e a abertura simultânea de portas e gavetas. O acabamento e a iluminação devem ser avaliados com o ambiente completo, e não apenas como detalhes isolados.' },
+      { title: 'Um exemplo real para observar de perto', text: 'No showroom, o armário fotografado combina portas de vidro, iluminação interna, cabideiro e gavetas junto ao dormitório. Ele serve como referência para conversar sobre organização e acabamentos. A solução do seu projeto será adaptada às medidas e às necessidades do seu imóvel.' },
+    ],
+    checklist: ['Fotos e medidas disponíveis do quarto ou closet', 'Quantidade e tipos de roupas, calçados e acessórios', 'Preferência por portas e organização interna', 'Espaço necessário para circulação e outros móveis'],
+  },
+  {
+    slug: 'quartos-planejados-joao-pessoa',
+    name: 'Quartos planejados',
+    title: 'Quartos planejados em João Pessoa',
+    description: 'Quartos e dormitórios sob medida em João Pessoa. Planeje guarda-roupas, painéis e bancadas com a Oca e conheça o showroom em Manaíra.',
+    image: '/images/oca-showroom-2751.webp',
+    alt: 'Dormitório do showroom Oca com painel amadeirado, cabeceira e armário com portas de vidro',
+    intro: 'Um quarto bem planejado equilibra descanso, organização e circulação. A Oca Planejados desenvolve projetos em João Pessoa que conectam guarda-roupas, painéis e áreas de apoio ao modo como você vive.',
+    sections: [
+      { title: 'Comece pela cama e pela circulação', text: 'As dimensões da cama e a posição de portas e janelas definem boa parte do layout. É preciso avaliar o acesso ao guarda-roupa, a passagem nas laterais e o espaço para abrir gavetas. Leve também as medidas de móveis e objetos que pretende manter.' },
+      { title: 'Integre armazenamento e áreas de apoio', text: 'Painéis, criados, bancadas e armários podem formar uma composição contínua, mas cada elemento precisa ter uma função. Se o quarto também recebe uma área de trabalho, pense na cadeira, na iluminação e na posição das tomadas. Para um dormitório compartilhado, discuta as necessidades de cada pessoa antes de aprovar a distribuição.' },
+      { title: 'Conheça o dormitório do showroom', text: 'O ambiente fotografado reúne um painel amadeirado, cabeceira estofada e armário com portas de vidro. A visita permite observar como os volumes e acabamentos se relacionam. Use essa referência para conversar com a equipe sobre o que faz sentido no seu quarto; os itens incluídos devem ser confirmados na proposta.' },
+    ],
+    checklist: ['Planta ou medidas e fotos do dormitório', 'Medidas da cama e dos móveis que serão mantidos', 'Necessidades de armazenamento e de trabalho', 'Posição de portas, janelas, tomadas e ar-condicionado'],
+  },
+];

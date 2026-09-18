@@ -4,3 +4,5 @@ out/
 *.png
 
 *.tsbuildinfo
+
+public/images/responsive/

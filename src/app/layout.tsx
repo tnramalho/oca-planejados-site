@@ -1,11 +1,15 @@
+import { Cormorant_Garamond, Jost } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
-import { SITE_URL, business, mapsUrl, faqs } from '@/lib/site';
+import { SITE_URL, business, mapsUrl } from '@/lib/site';
 import './globals.css';
+
+const headingFont = Cormorant_Garamond({ subsets: ['latin'], style: ['normal', 'italic'], display: 'swap', variable: '--font-heading' });
+const bodyFont = Jost({ subsets: ['latin'], display: 'swap', variable: '--font-body' });
 
 const title = 'Móveis Planejados em João Pessoa | Oca Planejados';
 const description = 'Cozinhas, closets, quartos e escritórios planejados em João Pessoa. Conheça o showroom da Oca em Manaíra e solicite um orçamento para seu projeto.';
 
-export const viewport: Viewport = { themeColor: '#0A0A0A' };
+export const viewport: Viewport = { themeColor: '#171815' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,6 +38,7 @@ const structuredData = {
       '@type': 'FurnitureStore', '@id': `${SITE_URL}/#empresa`,
       name: business.name, url: `${SITE_URL}/`, description,
       telephone: business.telephone,
+      sameAs: [business.instagram],
       address: {
         '@type': 'PostalAddress', streetAddress: `${business.streetAddress}, ${business.neighborhood}`,
         addressLocality: business.city, addressRegion: business.state, addressCountry: 'BR',
@@ -49,14 +54,7 @@ const structuredData = {
       },
     },
     { '@type': 'WebSite', '@id': `${SITE_URL}/#site`, url: `${SITE_URL}/`, name: business.name, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_URL}/#empresa` } },
-    {
-      '@type': 'WebPage', '@id': `${SITE_URL}/#pagina`, url: `${SITE_URL}/`, name: title, description,
-      inLanguage: 'pt-BR', isPartOf: { '@id': `${SITE_URL}/#site` }, about: { '@id': `${SITE_URL}/#empresa` },
-    },
-    {
-      '@type': 'FAQPage', '@id': `${SITE_URL}/#duvidas`, isPartOf: { '@id': `${SITE_URL}/#pagina` },
-      mainEntity: faqs.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })),
-    },
+
   ],
 };
 
@@ -64,12 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       </head>
-      <body>
+      <body className={`${headingFont.variable} ${bodyFont.variable}`}>
         <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-black focus:p-4">Pular para o conteúdo</a>
         {children}
       </body>

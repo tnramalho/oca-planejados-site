@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const navLinks = [
-  { label: 'Ambientes', href: '#ambientes' },
-  { label: 'Portfólio', href: '#portfolio' },
-  { label: 'Showroom', href: '#showroom' },
-  { label: 'Dúvidas', href: '#duvidas' },
-  { label: 'Contato', href: '#contato' },
+  { label: 'Ambientes', href: '/#ambientes' },
+  { label: 'Portfólio', href: '/#portfolio' },
+  { label: 'Showroom', href: '/#showroom' },
+  { label: 'Dúvidas', href: '/#duvidas' },
+  { label: 'Contato', href: '/#contato' },
 ];
 
 export default function Navigation() {
@@ -16,9 +16,19 @@ export default function Navigation() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen]);
 
   return (
     <header
@@ -28,7 +38,7 @@ export default function Navigation() {
     >
       <div className="max-w-[1600px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex-shrink-0">
+        <a href="/#hero" className="flex-shrink-0">
           <Image
             src="/images/oca-logo.webp"
             alt="Oca Planejados"
@@ -64,7 +74,7 @@ export default function Navigation() {
 
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-3 min-w-11 min-h-11 justify-center"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
           aria-expanded={menuOpen}
@@ -81,17 +91,17 @@ export default function Navigation() {
         id="menu-mobile"
         hidden={!menuOpen}
         className={`lg:hidden overflow-hidden transition-all duration-500 ${
-          menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          menuOpen ? 'max-h-[calc(100dvh-80px)] overflow-y-auto opacity-100' : 'max-h-0 opacity-0'
         }`}
         style={{ background: 'rgba(10,10,10,0.98)' }}
       >
-        <div className="px-6 py-6 flex flex-col gap-5 border-t border-white/10">
+        <div className="px-6 py-6 flex flex-col gap-1 border-t border-white/10">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-white/80 text-xs font-normal tracking-[0.2em] uppercase"
+              className="py-3 min-h-11 text-white/80 text-xs font-normal tracking-[0.2em] uppercase"
             >
               {link.label}
             </a>
