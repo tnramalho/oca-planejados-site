@@ -1,0 +1,35 @@
+name: Deploy OCA (produção)
+
+# Deploy automático do site da OCA no servidor de produção.
+# Dispara a cada push no main (ou manualmente em "Run workflow").
+# A conexão usa uma chave SSH de deploy DEDICADA, presa a um "forced command"
+# no servidor (/usr/local/bin/oca-deploy) — essa chave só consegue rodar o
+# deploy da OCA, nunca um comando arbitrário nem outros containers do host.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-oca-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy no servidor
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # O comando enviado é ignorado: o servidor força a execução de
+          # /usr/local/bin/oca-deploy (git pull do main + docker compose up --build).
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
+            root@"$DEPLOY_HOST" deploy

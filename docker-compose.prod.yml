@@ -1,0 +1,29 @@
+# Produção: site estático (Next export) servido por nginx, atrás do Traefik existente.
+# Não publica portas no host — todo o tráfego entra pela rede traefik-public (80/443 do Traefik).
+# Serve os dois hostnames (apex e www) direto, sem redirect de host.
+services:
+  web:
+    build: .
+    image: oca-planejados-web
+    container_name: oca-planejados-web
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      # HTTPS
+      - "traefik.http.routers.oca-web.rule=Host(`ocaplanejados.com`) || Host(`www.ocaplanejados.com`)"
+      - "traefik.http.routers.oca-web.entrypoints=websecure"
+      - "traefik.http.routers.oca-web.tls=true"
+      - "traefik.http.routers.oca-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.oca-web.loadbalancer.server.port=80"
+      # HTTP -> HTTPS
+      - "traefik.http.routers.oca-web-http.rule=Host(`ocaplanejados.com`) || Host(`www.ocaplanejados.com`)"
+      - "traefik.http.routers.oca-web-http.entrypoints=web"
+      - "traefik.http.routers.oca-web-http.middlewares=oca-redirect"
+      - "traefik.http.middlewares.oca-redirect.redirectscheme.scheme=https"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
