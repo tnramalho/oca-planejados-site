@@ -58,10 +58,14 @@ const structuredData = {
   ],
 };
 
+// Pixel de conversão (OpenAI Ads) + evento lead_created a cada clique em link de WhatsApp.
+const OAI_PIXEL = "!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,\"script\",\"https://bzrcdn.openai.com/sdk/oaiq.min.js\");oaiq(\"init\",{pixelId:\"2Ffsdq7r6rbC73LdnGq3L4\",debug:true});document.addEventListener('click',function(e){var t=e.target;var a=t&&t.closest?t.closest('a[href*=\"wa.me\"],a[href*=\"api.whatsapp.com\"],a[href*=\"whatsapp.com/send\"]'):null;if(a&&window.oaiq){window.oaiq('measure','lead_created',{type:'customer_action'});}},true);";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: OAI_PIXEL }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       </head>
       <body className={`${headingFont.variable} ${bodyFont.variable}`}>
